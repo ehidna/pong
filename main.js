@@ -236,10 +236,12 @@ $(document).ready(function() {
 		if(raket.y<=top.y+10&&raket.y+40>=top.y&&raket.x+7>=top.x){
             playSound(3);
 			hizx=-hizx;
+			top.x=raket.x+7;
         }
 		if(sagraket.y<=top.y+10&&sagraket.y+40>=top.y&&sagraket.x<=top.x+10){
             playSound(3);
 			hizx=-hizx;
+			top.x=sagraket.x-10;
         }
 		sagraket.y+=hiz2y;
 		raket.y+=hiz1y;
