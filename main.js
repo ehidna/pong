@@ -139,7 +139,7 @@ $(document).ready(function() {
 	var hiz1y=0;
 	var hiz2y=0;
 	var pause = false;
-	var restart = false;
+	
 	$(document).keydown(function(event){ //kullanici tusa bastiginda
         switch(event.which){
             case 80:
@@ -157,8 +157,7 @@ $(document).ready(function() {
 				}
 				break;
 			case 82:
-				if(restart == false){
-					restart = true;
+				
 					skorPano.text=0;
 					sagskorPano.text=0;
 					skor=0;
@@ -168,12 +167,7 @@ $(document).ready(function() {
 					hizx=5;
 					hizy=-5;
 					stage.update();
-				}else{
-					if(restart == true){
-						restart = false;
-						stage.update();		
-					}
-				}
+				
 				break;
             case 38: //yukari ok tusunun kodu
                 hiz2y= -5; //hizi yukari dogru 5'e ayarla
