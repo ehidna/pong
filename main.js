@@ -143,19 +143,17 @@ $(document).ready(function() {
 	$(document).keydown(function(event){ //kullanici tusa bastiginda
         switch(event.which){
             case 80:
-				if(top.x>=0&&top.x<=640&&top.y>=0&&top.y<=470){
-					if(pause == false){
-						pause = true;
-						stage.addChild(Pause);
-						hizx=0;hizy=0;
-					}
+				if(pause == false){
+					pause = true;
+					stage.addChild(Pause);
+					stage.update();
+				}
 				else{
 					if(pause == true){
 						pause = false;
-						hizx=5;hizy=-5;
-						
+						stage.removeChild(Pause);
+						stage.update();		
 					}
-				}
 				}
 				break;
 			case 82:
@@ -163,13 +161,17 @@ $(document).ready(function() {
 					restart = true;
 					skorPano.text=0;
 					sagskorPano.text=0;
+					skor=0;
+					sagskor=0;
 					top.x=315;
 					top.y=150;
 					hizx=5;
 					hizy=-5;
+					stage.update();
 				}else{
 					if(restart == true){
-						restart = false;		
+						restart = false;
+						stage.update();		
 					}
 				}
 				break;
@@ -193,18 +195,7 @@ $(document).ready(function() {
         console.log(event.which,"p");
         
 		switch(event.which){
-            case 80:
-				if(pause == true){
-					pause = false;
-					hizx;hizy;
-				}
-				else{
-					if(pause == false){
-						pause = true;
-						
-					}
-				}
-			break;
+            
 			
             case 38: //yukari ok tusunun kodu
                 hiz2y= 0; //hizi yukari dogru 5'e ayarla
@@ -229,16 +220,18 @@ $(document).ready(function() {
      //tusa basmayi biraktiginda tum hizlari sifirla
     //iceri girip girmedigini tek bir kere belirtebilmek icin kullandigimiz bir flag
     setInterval(function(){ //her 30 milisaniyede bir is yaptirmak icin
-        top.x+=hizx; // degerleri hizlari kadar arttir
+        if(pause)return;
+		
+		top.x+=hizx; // degerleri hizlari kadar arttir
         top.y+=hizy;
 		 // sahneyi yeni goruntuyle guncelle
-		if(top.y==0 || top.y==470) {
+		if(top.y<=0 || top.y>=470) {
 			hizy=-hizy;
 			playSound(3);}
-		if(top.x==0 || top.x+10==640) {
+		if(top.x<=0 || top.x+10>=640) {
 			hizx=-hizx;
 			playSound(2);
-			if(top.x==0){
+			if(top.x<=0){
             	sagskor++;
             	sagskorPano.text=sagskor;
         	}else{
